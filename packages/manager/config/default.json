@@ -1,0 +1,88 @@
+{
+  "rch": {
+    "Astenpos": {
+      "IP": "10.0.0.23",
+      "TIMEOUT_MILLI": 40000,
+      "MAX_CONF_ROWS": {
+        "payments": 6,
+        "vats": 5,
+        "departments": 5
+      }
+    },
+    "5stelle": {
+      "IP": "10.0.0.23",
+      "TIMEOUT_MILLI": 40000
+    }
+  },
+  "mexal": {
+    "MEXAL_EXE": "C:\\Passepartout\\PassClient\\mxdesk1250140000\\prog\\mxdesk.exe",
+    "ARGUMENTS": "-command=mxrs.exe -t1",
+    "CREDENTIALS": "ADMIN:ADMIN",
+    "COMPANY": "IMP",
+    "LOGIN": "administrator",
+    "PASSWORD": "123Cloud!",
+    "LOG_DIR": "C:\\mexal\\vte2mexal",
+    "CORRISPETTIVI": {
+      "ES": {
+        "mexal": "801.0001",
+        "iva": "E01"
+      },
+      "3": {
+        "mexal": "801.0002"
+      },
+      "4": {
+        "mexal": "801.0003"
+      },
+      "cassa": {
+        "mexal": "201.00001"
+      },
+      "corr_non_riscosso": {
+        "mexal": "201.00002"
+      }
+    }
+  },
+  "mysql": {
+    "DB_SERVER": "srv2.astenmail.com",
+    "DB_DATABASE": "ufficio_beach",
+    "DB_USER": "root",
+    "DB_PASS": "Emergenza"
+  },
+  "express": {
+    "AUTH": "boobs",
+    "BODY_LIMIT": "500kb",
+    "IP": "10.0.0.192",
+    "REQ_ID": "elite",
+    "NAMESPACE": "borin",
+    "PORT": 4000
+  },
+  "apollo_express": {
+    "AUTH": "boobs",
+    "BODY_LIMIT": "500kb",
+    "IP": "127.0.0.1",
+    "NAMESPACE": "apollo",
+    "ORIGIN": [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://localhost:3002"
+    ],
+    "MAXAGE_MINUTES": 60,
+    "PORT": 4100
+  },
+  "couchbase": {
+    "IP_DEFAULT": "10.88.0.7",
+    "BUCKET_DEFAULT": "astenpos"
+  },
+  "astenpos": {
+    "PORT": "5000"
+  },
+  "5stelle": {
+    "HOSTNAME": "pc109.hotelcinquestelle.cloud",
+    "CLIENT_TOKEN": "tokenAsten45489618729",
+    "HOTEL_CODE": "elitecaorle",
+    "PATH_BASE": "/HotelEndpoint",
+    "PORT": "",
+    "HEADERS": {
+      "Content-Type": "application/json"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "mysql": {
+    "DB_SERVER": "localhost",
+    "DB_DATABASE": "adapter",
+    "DB_USER": "root",
+    "DB_PASS": "Emergenza"
+  },
+  "couchbase": {
+    "IP_DEFAULT": "10.0.0.183",
+    "BUCKET_DEFAULT": "astenpos",
+    "PASSWORD_DEFAULT": "astenpos"
+  }
+}

@@ -1,0 +1,98 @@
+directive @auth on FIELD_DEFINITION
+
+directive @guest on FIELD_DEFINITION
+
+directive @connection(key: String) on FIELD_DEFINITION
+
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+input AddUserInput {
+  email: String!
+  username: String!
+  password: String!
+}
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+enum CursorDir {
+  PREV
+  NEXT
+}
+
+interface Edge {
+  cursor: String!
+}
+
+input EditUserInput {
+  username: String!
+  email: String!
+  password: String
+}
+
+type Mutation {
+  _: String
+  add(input: AddUserInput!): User
+  edit(input: EditUserInput!): User
+  del(id: ID!): User
+  newPass(id: ID!, password: String!): User
+  signUp(email: String!, username: String!, role: Roles!, password: String!): User
+  signIn(username: String!, password: String!): User
+  signOut: User
+  uploadFile(file: Upload!): Boolean
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+}
+
+type Query {
+  _: String
+  me: User
+  user(id: ID!): User
+  users: [User]
+  usersResultCursor(after: String, dir: CursorDir, first: Int): ResultCursor
+}
+
+type ResultCursor {
+  edges: [Edge]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+enum Roles {
+  SUPER
+  GUEST
+}
+
+type Subscription {
+  _: String
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type User {
+  id: ID!
+  username: String!
+  email: String
+  role: Roles!
+}
+
+type UserConnection {
+  cursorNext: String!
+  cursorPrevious: String!
+  hasNext: Boolean!
+  hasPrevious: Boolean!
+  users: [User]
+}
+
+type userEdge implements Edge {
+  cursor: String!
+  node: User
+}
+
