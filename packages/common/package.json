@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "generate-password": "^1.5.1",
-    "graphql-anywhere": "^4.2.6",
-    "loglevel": "^1.6.8",
-    "moment": "^2.24.0",
+    "graphql-anywhere": "^4.2.7",
+    "loglevel": "^1.7.0",
+    "moment": "^2.28.0",
     "moment-range": "^4.0.2",
     "numeral": "^2.0.6",
-    "pm2": "^4.2.3",
-    "nanoid": "^3.1.9",
-    "yup": "^0.28.4",
-    "winston": "^3.2.1"
+    "pm2": "^4.4.1",
+    "nanoid": "^3.1.12",
+    "yup": "^0.29.3",
+    "winston": "^3.3.3"
   }
 }
