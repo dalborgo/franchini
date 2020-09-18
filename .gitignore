@@ -4,3 +4,7 @@
 /packages/io/node_modules/
 /packages/manager/node_modules/
 /packages/web/node_modules/
+/.editorconfig
+/.mocharc.json
+/babel.config.js
+/.idea/
