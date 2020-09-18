@@ -1,6 +1,6 @@
 {
   "mysql": {
-    "DB_SERVER": "127.0.0.1",
+    "DB_SERVER": "10.0.0.139",
     "DB_DATABASE": "franchini",
     "DB_USER": "root",
     "DB_PASS": "Emergenza"
