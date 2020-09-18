@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "fontsource-roboto": "^3.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "swr": "^0.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-app-rewired start",
     "start norm": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "typeface": "del c:\\xampp\\franchini\\node_modules\\fontsource-roboto\\files\\*.* /Q&&xcopy c:\\Users\\Asten\\Desktop\\_base\\franchini\\fontsource-roboto c:\\xampp\\franchini\\node_modules\\fontsource-roboto /Y /E"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,4 +1,4 @@
-import { cDate, numeric } from '@adapter/common'
+import { cDate } from '@adapter/common'
 import log from '@adapter/common/src/winston'
 import indexRouter from './routes'
 import appRouter from './routes/main'
@@ -33,8 +33,6 @@ app.use(morgan(
       tokens['remote-ip'](req, res),
       tokens.method(req, res),
       tokens.url(req, res),
-      numeric.printByte(tokens.req(req, res, 'content-length')), '/',
-      numeric.printByte(tokens.res(req, res, 'content-length')),
       tokens.status(req, res),
       tokens['response-time'](req, res, 0), 'ms',
     ].join(' ')

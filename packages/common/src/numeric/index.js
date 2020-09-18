@@ -14,7 +14,7 @@ numeral.register('locale', 'it', {
 numeral.locale('it')
 
 const printMoney = (value, fd = 2) => printDecimal(value, fd, true)
-const printByte = value => numeral(value).format('0b')
+const printByte = value => numeral(value || 0).format('0b')
 const round = (num, decimal = 2) => Number(num.toFixed(decimal))
 
 function printDecimal (value, fd = 2, money = false) {

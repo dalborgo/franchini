@@ -4,12 +4,7 @@
   "author": "MDB",
   "main": "src/index.js",
   "scripts": {
-    "start": "node -r esm src",
-    "manager": "set DEBUG=man:*,ast:*,5s:*,rch:*&&set Q_DEBUG=1&&nodemon -r esm src/sand",
-    "server": "set DEBUG=man:*,ast:*,5s:*,rch:*&&set Q_DEBUG=1&&nodemon -r esm src/server",
-    "init": "set DEBUG=man:*&&node -r esm src/tasks/ombrelli/init",
-    "get-graphql": "get-graphql-schema http://127.0.0.1:4100/graphql > schema.graphqls",
-    "test": "mocha test/test",
+    "start server": "set DEBUG=man:*&&set Q_DEBUG=1&&nodemon -r esm src",
     "plop": "plop -- --project manager"
   },
   "license": "MIT",
