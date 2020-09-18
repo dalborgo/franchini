@@ -2,11 +2,11 @@ import React from 'react'
 import 'fontsource-roboto'
 import { CssBaseline, Typography } from '@material-ui/core'
 import useSWR, { SWRConfig } from 'swr'
-import { cFunctions } from '@adapter/common'
+import { cFunctions, log } from '@adapter/common'
 const isProd = cFunctions.isProd()
 const REACT_APP = isProd ? 'REACT_APP' : 'REACT_APP_DEV'
 const POLLING_MILLI = process.env[`${REACT_APP}_POLLING_MILLI`] || 300000
-
+log.info(`Polling ${POLLING_MILLI}`)
 const Main = () => {
   const { data, error } = useSWR('http://localhost:4000/franchini/get_recipes')
   
