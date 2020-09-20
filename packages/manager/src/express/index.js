@@ -1,4 +1,4 @@
-import { cDate } from '@adapter/common'
+import { cDate, cFunctions } from '@adapter/common'
 import log from '@adapter/common/src/winston'
 import indexRouter from './routes'
 import appRouter from './routes/main'
@@ -56,10 +56,13 @@ app.use(`/${NAMESPACE}`, appRouter)
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   log.error(err)
-  res.status(err.status || 500)
-  res.send({ ok: false, message: err.message, err })
+  if (cFunctions.isProd()) {
+    res.status(err.status || 500)
+  } else {
+    res.status(412 || err.status || 500)
+  }
+  res.json({ ok: false, message: err.message, err })
 })
-
 app.use(function (req, res) {
   const err = createError(404)
   log.warn(`${err.message} ${req.originalUrl}`)

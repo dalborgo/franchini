@@ -26,12 +26,11 @@ router.get('/get_recipes', async function (req, res) {
                 + 'plutxt '
                 + 'ON '
                 + 'plu.CodPLU = plutxt.CodPlu'
-  
-  const { ok, message, results } = await mysql.executeQuery(query)
+  const { ok, message, results, err } = await mysql.executeQuery(query)
   if (ok) {
-    res.send({ results })
+    res.send({ ok, results })
   } else {
-    res.send({ ok, message })
+    res.send({ ok, message, err })
   }
 })
 
