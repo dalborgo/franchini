@@ -42,8 +42,8 @@ const Layout = () => {
 const Main = () => {
   const { data, error } = useSWR('http://localhost:4000/franchini/get_recipes')
   
-  if (error) {return <Typography>failed to load</Typography>}
-  if (!data) {return <Typography>loading...</Typography>}
+  if (error) {return <Typography>errore nel caricamento dati!</Typography>}
+  if (!data) {return <Typography>caricamento...</Typography>}
   if (data?.err) {
     return <pre>{JSON.stringify(data.err, null, 2)}</pre>
   } else {
