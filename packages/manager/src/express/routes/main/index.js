@@ -25,7 +25,8 @@ router.get('/get_recipes', async function (req, res) {
                 + 'INNER JOIN '
                 + 'plutxt '
                 + 'ON '
-                + 'plu.CodPLU = plutxt.CodPlu'
+                + 'plu.CodPLU = plutxt.CodPlu '
+                + 'ORDER BY catmerc.CodMer'
   const { ok, message, results, err } = await mysql.executeQuery(query)
   if (ok) {
     res.send({ ok, results })
