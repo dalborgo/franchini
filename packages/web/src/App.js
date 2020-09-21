@@ -1,6 +1,6 @@
 import React from 'react'
 import 'fontsource-roboto'
-import { Container, CssBaseline, makeStyles, Typography } from '@material-ui/core'
+import { Container, CssBaseline, LinearProgress, makeStyles } from '@material-ui/core'
 import useSWR, { SWRConfig } from 'swr'
 import { cFunctions, log } from '@adapter/common'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -10,9 +10,11 @@ import { MainList } from './components'
 const isProd = cFunctions.isProd()
 const REACT_APP = isProd ? 'REACT_APP' : 'REACT_APP_DEV'
 const POLLING_MILLI = process.env[`${REACT_APP}_POLLING_MILLI`] || 60000
-const SERVER = process.env[`${REACT_APP}_SERVER`] || '127.0.0.1'
-log.info(`Polling ${POLLING_MILLI}`)
-log.info(`Server ${SERVER}`)
+const wlh = window.location.hostname
+const SERVER = wlh || process.env[`${REACT_APP}_SERVER`] || '127.0.0.1'
+log.info(`Polling: ${POLLING_MILLI}`)
+log.info(`Server: ${SERVER}`)
+log.info(`Is Prod? ${isProd}`)
 
 const myErrorHandler = (error, componentStack) => {
   log.error('Global error', error)
@@ -24,8 +26,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-  },
-  main: {
   },
 }))
 
@@ -42,10 +42,28 @@ const Layout = () => {
 }
 
 const Main = () => {
-  const { data, error } = useSWR('http://10.0.0.139:4000/franchini/get_recipes')
+  const { data, error } = useSWR(`http://${SERVER}:4000/franchini/get_recipes`)
   
-  if (error) {return <Typography>errore nel caricamento dati!</Typography>}
-  if (!data) {return <Typography>caricamento...</Typography>}
+  if (error) {
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <h1>ERRORE DI CONNESSIONE AL SERVER!</h1>
+        <img
+          alt="Error 503 "
+          src="/images/undraw_server_down_s4lk.svg"
+          style={{ width: '100%' }}
+        />
+      </div>
+    
+    )
+  }
+  if (!data) {
+    return (
+      <p>
+        <LinearProgress/>
+      </p>
+    )
+  }
   if (data?.err) {
     return <pre>{JSON.stringify(data.err, null, 2)}</pre>
   } else {

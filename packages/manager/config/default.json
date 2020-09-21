@@ -1,7 +1,7 @@
 {
   "mysql": {
-    "DB_SERVER": "srv2.astenmail.com",
-    "DB_DATABASE": "ufficio_beach",
+    "DB_SERVER": "127.0.0.1",
+    "DB_DATABASE": "franchini",
     "DB_USER": "root",
     "DB_PASS": "Emergenza"
   },
