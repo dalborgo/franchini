@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
-import Box from '@material-ui/core/Box'
 import AppBar from '@material-ui/core/AppBar'
-import map from 'lodash/map'
+import groupBy from 'lodash/groupBy'
+import orderBy from 'lodash/orderBy'
+import { colors } from './colors'
+import parse from 'html-react-parser'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     whiteSpace: 'nowrap',
     boxShadow: 'none',
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
   },
   drawerHeader: {
     ...theme.mixins.toolbar,
@@ -35,44 +39,56 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Row = ({ row }) => {
+  const recipe = row.recipe.replace(/\^b\+/g, '<strong>').replace(/\^b-/g, '</strong>')
   return (
     <Grid container spacing={3}>
-      <Grid item xs={1}>
+      <Grid item style={{ textAlign: 'center' }} xs={1}>
         {row.codplu}
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={3}>
         {row.descr}
       </Grid>
-      <Grid item xs={7}>
-        {row.recipe}
+      <Grid item style={{ marginLeft: -12 }} xs={8}>
+        {parse(recipe)}
       </Grid>
     </Grid>
   )
 }
 
-const Header = ({ name, code }) => {
+const Header = ({ name, code, bgColor }) => {
   const classes = useStyles()
-  
   return (
     <div className={classes.root}>
       <Toolbar
         style={
           {
-            backgroundColor: 'lightgray',
+            backgroundColor: bgColor,
             minHeight: 0,
             marginTop: 40,
             marginBottom: 40,
+            padding: 0,
+            paddingTop: 7,
+            paddingBottom: 7,
           }
         }
         variant="dense"
       >
-        <Typography variant="h6">
-          {code} {name}
-        </Typography>
+        <Grid container>
+          <Grid item style={{ textAlign: 'center', paddingRight: 15 }} xs={1}>
+            {code}
+          </Grid>
+          <Grid item xs={3}>
+            {name}
+          </Grid>
+          <Grid item xs={8}>
+            INGREDIENTI
+          </Grid>
+        </Grid>
       </Toolbar>
     </div>
   )
 }
+
 const MainList = props => {
   const { list } = props
   const classes = useStyles()
@@ -82,51 +98,66 @@ const MainList = props => {
     acc[value.codmer] = React.createRef()
     return acc
   }, {}), [list, listCategory])
-  
+  const list_ = groupBy(list, value => value.codmer)
+  let listCategory_ = Object.entries(listCategory).map((value, index) => {
+    const [key, val] = value
+    return { key, val }
+  })
+  listCategory_ = orderBy(listCategory_, ['val'])
+  let cont = 0
   const handleClick = id =>
     refs[id].current.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     })
-  let catPrev
+  //let catPrev
   return (
     <div className={classes.root}>
       <AppBar className={classes.title} color="default" elevation={0} position="fixed">
         <Toolbar variant="dense">
           {
-            map(listCategory, (item, key) => (
-              <span key={key}>
-                <Box boxShadow={0} clone><Button
+            listCategory_.map((item, index) => (
+              <span key={item.key}>
+                <Button
                   className={classes.button}
-                  onClick={() => handleClick(key)}
+                  onClick={() => handleClick(item.key)}
                   size="small"
+                  style={
+                    {
+                      backgroundColor: colors[index % colors.length],
+                    }
+                  }
                   type="button"
                   variant="contained"
                 >
-                  {item}
-                </Button></Box>
+                  {item.val}
+                </Button>
               </span>
             ))
           }
         </Toolbar>
       </AppBar>
       {
-        list.map((row, index) => {
-          const header = catPrev !== row.codmer ? (
-            <div ref={refs[row.codmer]}>
+        listCategory_.map((row, index) => {
+          const res = []
+          res.push(
+            <div key={cont++} ref={refs[row.key]}>
               <Header
-                code={row.codmer}
-                name={row.merc}
+                bgColor={colors[index % colors.length]}
+                code={row.key}
+                name={row.val}
               />
             </div>
-          ) : null
-          catPrev = row.codmer
-          return (
-            <div key={index}>
-              {header}
-              <Row row={row}/>
-            </div>
           )
+          
+          for (let row_ of list_[row.key]) {
+            res.push(
+              <div key={cont++}>
+                <Row row={row_}/>
+              </div>
+            )
+          }
+          return res
         })
       }
     </div>

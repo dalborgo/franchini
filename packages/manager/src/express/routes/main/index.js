@@ -26,7 +26,9 @@ router.get('/get_recipes', async function (req, res) {
                 + 'plutxt '
                 + 'ON '
                 + 'plu.CodPLU = plutxt.CodPlu '
-                + 'ORDER BY catmerc.CodMer'
+                + 'WHERE length(TRIM(plutxt.Testo)) > 10 '
+                + 'ORDER BY catmerc.DesMer, '
+                + 'plu.Desc1'
   const { ok, message, results, err } = await mysql.executeQuery(query)
   if (ok) {
     res.send({ ok, results })

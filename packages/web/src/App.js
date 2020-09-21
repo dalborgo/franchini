@@ -1,6 +1,6 @@
 import React from 'react'
 import 'fontsource-roboto'
-import { CssBaseline, Typography, Container, makeStyles } from '@material-ui/core'
+import { Container, CssBaseline, makeStyles, Typography } from '@material-ui/core'
 import useSWR, { SWRConfig } from 'swr'
 import { cFunctions, log } from '@adapter/common'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -9,8 +9,10 @@ import { MainList } from './components'
 
 const isProd = cFunctions.isProd()
 const REACT_APP = isProd ? 'REACT_APP' : 'REACT_APP_DEV'
-const POLLING_MILLI = process.env[`${REACT_APP}_POLLING_MILLI`] || 300000
+const POLLING_MILLI = process.env[`${REACT_APP}_POLLING_MILLI`] || 60000
+const SERVER = process.env[`${REACT_APP}_SERVER`] || '127.0.0.1'
 log.info(`Polling ${POLLING_MILLI}`)
+log.info(`Server ${SERVER}`)
 
 const myErrorHandler = (error, componentStack) => {
   log.error('Global error', error)
@@ -40,7 +42,7 @@ const Layout = () => {
 }
 
 const Main = () => {
-  const { data, error } = useSWR('http://localhost:4000/franchini/get_recipes')
+  const { data, error } = useSWR('http://10.0.0.139:4000/franchini/get_recipes')
   
   if (error) {return <Typography>errore nel caricamento dati!</Typography>}
   if (!data) {return <Typography>caricamento...</Typography>}
